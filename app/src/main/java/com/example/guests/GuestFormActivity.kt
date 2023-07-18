@@ -2,10 +2,30 @@ package com.example.guests
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+import com.example.guests.databinding.ActivityGuestFormBinding
 
-class GuestFormActivity : AppCompatActivity() {
+class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var binding: ActivityGuestFormBinding
+    private lateinit var guestFormVielModel: GuestsFormViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_guest_form)
+
+        binding = ActivityGuestFormBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        guestFormVielModel = ViewModelProvider(this).get(GuestsFormViewModel::class.java)
+
+        binding.buttonSave.setOnClickListener(this)
+        binding.radioPresent.isChecked = true
+    }
+
+    override fun onClick(view: View) {
+        if (view.id == R.id.button_save) {
+
+        }
     }
 }
