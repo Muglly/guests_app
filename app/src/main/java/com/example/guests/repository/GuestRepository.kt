@@ -3,8 +3,9 @@ package com.example.guests.repository
 import android.content.ContentValues
 import android.content.Context
 import com.example.guests.model.GuestModel
+import java.lang.Exception
 
-class GuestRepository private constructor(context: Context){
+class GuestRepository private constructor(context: Context) {
     private val guestDataBase = GuestDataBase(context)
 
     // Singleton
@@ -19,15 +20,17 @@ class GuestRepository private constructor(context: Context){
         }
     }
 
-    fun insert(guest: GuestModel) {
-        val db = guestDataBase.writableDatabase
-
-        val presence = if (guest.presence) 1 else 0
-
-        val values = ContentValues()
-        values.put("name", guest.name)
-        values.put("presence", presence)
-
-        db.insert("Guest", null, values)
+    fun insert(guest: GuestModel): Boolean {
+        return try {
+            val db = guestDataBase.writableDatabase
+            val presence = if (guest.presence) 1 else 0
+            val values = ContentValues()
+            values.put("name", guest.name)
+            values.put("presence", presence)
+            db.insert("Guest", null, values)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 }
