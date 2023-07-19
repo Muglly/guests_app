@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import com.example.guests.model.GuestModel
 import com.example.guests.viewmodel.GuestsFormViewModel
 import com.example.guests.R
 import com.example.guests.databinding.ActivityGuestFormBinding
@@ -26,7 +27,7 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if (view.id == R.id.button_save) {
-
+            // GuestModel(10, "x", false)
         }
     }
 }
