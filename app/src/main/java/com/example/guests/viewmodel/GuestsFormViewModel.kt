@@ -4,6 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.example.guests.repository.GuestRepository
 
 class GuestsFormViewModel : ViewModel() {
-    private val repository = GuestRepository()
+    private val repository = GuestRepository.getInstance()
 
 }
