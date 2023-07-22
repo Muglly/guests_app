@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="text_name">Nome</string>
+    <string name="text_name">Convidado</string>
     <string name="text_present">Presença</string>
     <string name="text_absent">Ausência</string>
     <string name="button_save">Salvar</string>
