@@ -38,9 +38,10 @@ class AllGuestsFragment : Fragment() {
             }
 
             override fun onDelete(id: Int) {
-                TODO("Not yet implemented")
-            }
+                allGuestsViewModel.delete(id)
+                allGuestsViewModel.getAll()
 
+            }
         }
 
         adapter.attachListener(listener)
