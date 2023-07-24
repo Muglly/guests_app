@@ -3,6 +3,7 @@ package com.example.guests.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.guests.model.GuestModel
 import com.example.guests.viewmodel.GuestsFormViewModel
@@ -13,6 +14,7 @@ import com.example.guests.databinding.ActivityGuestFormBinding
 class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityGuestFormBinding
     private lateinit var guestFormVielModel: GuestsFormViewModel
+    private var guestId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,7 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
         binding.buttonSave.setOnClickListener(this)
         binding.radioPresent.isChecked = true
 
+        observe()
         loadData()
     }
 
@@ -32,15 +35,27 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
         if (view.id == R.id.button_save) {
             val name = binding.editName.text.toString()
             val presence = binding.radioPresent.isChecked
-            val model = GuestModel(0, name, presence)
-            guestFormVielModel.insert(model)
+            val model = GuestModel(guestId, name, presence)
+            guestFormVielModel.save(model)
+            finish()
         }
+    }
+
+    private fun observe() {
+        guestFormVielModel.guest.observe(this, Observer {
+            binding.editName.setText(it.name)
+            if (it.presence) {
+                binding.radioPresent.isChecked = true
+            } else {
+                binding.radioAbsent.isChecked = true
+            }
+        })
     }
 
     private fun loadData() {
         val bundle = intent.extras
         if (bundle != null) {
-            val guestId = bundle.getInt(DataBaseConstants.GUEST.ID)
+            guestId = bundle.getInt(DataBaseConstants.GUEST.ID)
             guestFormVielModel.get(guestId)
         }
     }
